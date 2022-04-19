@@ -1,22 +1,23 @@
-import discord
+from discord.ext import commands
 from models import User
-import os
+import schedule, time
+bot = commands.Bot('.')
+users = {}
+@bot.event
+async def on_message(message):
+    if message.author.id not in users.keys():
+        users[message.author.id] = User(message.author.name)
 
-userid = []
-users = []
 
-class MyClient(discord.Client):
-    async def on_ready(self):
-        print(f"Logged on as {self.user}")
-
-    async def on_message(self, message):
-        if message.author.id not in userid:
-            userid.append(message.author.id)
-            users.append(message.author.name)
-
-        test = User('gerbsec')
-        test.add_fword()
-        print(test.fword)
-
-client = MyClient()
-client.run(os.environ['BOT'])
+@bot.listen()
+async def on_message(message):
+    if 'wallah' in message.content.lower():
+        users[message.author.id].wallah += 1
+    elif 'fuck' in message.content.lower():
+        users[message.author.id].fword += 1
+    elif 'shit' in message.content.lower():
+        users[message.author.id].sword += 1
+    elif 'ass' in message.content.lower():
+        users[message.author.id].aword += 1
+    
+bot.run('lol')
