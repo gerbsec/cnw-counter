@@ -1,6 +1,5 @@
 from discord.ext import commands
 from models import User
-import schedule, time
 bot = commands.Bot('.')
 users = {}
 @bot.event
