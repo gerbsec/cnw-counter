@@ -21,5 +21,5 @@ async def on_message(message):
         for index, word in enumerate(words):
             msg += f"{word}: {users[message.author.id].__dict__[word]}\n"
         await message.author.send(msg)
-        users[message.author.id].__dict__[word] = 0
+        users[message.author.id].total = 0
 bot.run('lol')
